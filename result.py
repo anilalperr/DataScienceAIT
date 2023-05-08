@@ -16,7 +16,8 @@ from sklearn.naive_bayes import MultinomialNB
 from sklearn.svm import SVC
 
 # Load data into a pandas DataFrame
-data = pd.read_csv('HateSpeech_Binary_Dataset.csv')
+data = pd.read_csv('combined_data.csv')
+data = data.dropna()
 
 # Separate the feature (textual data) and target (binary labels) columns
 X = data['text']
