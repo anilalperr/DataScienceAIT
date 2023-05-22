@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 Created on Wed Jun  9 10:45:49 2021
-Last Edited Feb 10, 2022
+Last Edited May 22, 2022
 
 @author: Anıl Alper
 """
@@ -31,24 +31,20 @@ def preprocess(text):
     return text.strip()
 
 #generates txt files for cocogen client
-text_num = 0
 texts_list = list()
 
 #reads the binary dataset, preprocesses each text and add them to a new directory named input_dir
 for index, row in hs_binary.iterrows():
-    with open("input_dir/text{}.txt".format(text_num), "w+") as txt_file:
-        new_text = preprocess(row["text"])
-        if new_text[:3] == "rt ":
-            new_text = new_text[3:]
-        txt_file.write(new_text)
+    new_text = preprocess(row["text"])
+    if new_text[:3] == "rt ":
+        new_text = new_text[3:]
     texts_list.append(new_text)
-    text_num += 1
 
 # replace the previous texts with the preprocessed texts
 hs_binary["text"] = texts_list
 
 # create a path
-path = r'Dataset'
+path = r''
 
 # create a combined hate speech dataset
 hs_binary.to_csv(os.path.join(path, r'combined_data.csv'), index=False)
